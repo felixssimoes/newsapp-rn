@@ -1,6 +1,13 @@
-import React from 'react';
-import BlankScreen from 'ui/screens/blank.screen';
+import React, {useEffect} from 'react';
+import {Provider, useDispatch} from 'react-redux';
+
+import store from '../store';
+import {AppContainer} from './app.container';
 
 export default () => {
-  return <BlankScreen />;
+  return (
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
+  );
 };
