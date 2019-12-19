@@ -9,11 +9,13 @@ import {apiRequest, loadCategory, loadAllCategories} from 'store/actions';
 import appTypes from '../app/app.types';
 import newsTypes from './news.types';
 import {setCategoryLoading, updateNewsArticles} from './news.actions';
+import {loadNewsCategoriesForAllCategories} from 'data/repository/news.repository';
 
 const loadNewsOnAppStart = ({dispatch}) => next => action => {
   const result = next(action);
   if (action.type === appTypes.start) {
-    dispatch(loadAllCategories());
+    // dispatch(loadAllCategories());
+    loadNewsCategoriesForAllCategories();
   }
   return result;
 };
