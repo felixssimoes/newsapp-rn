@@ -9,10 +9,16 @@ import {
 import {useSelector} from 'react-redux';
 
 import {newsCategories} from 'data/api/news.api';
+import {
+  getAllCategoriesLoading,
+  getCategoryLoading,
+  getCategoryResultsCount,
+} from 'store/selectors';
 
 const HomeCategory = ({category}) => {
-  const loading = useSelector(
-    state => (state.news.categories[category] || {}).loading || false,
+  const loading = useSelector(state => getCategoryLoading(state, category));
+  const totalResults = useSelector(state =>
+    getCategoryResultsCount(state, category),
   );
 
   return (
@@ -29,12 +35,13 @@ const HomeCategory = ({category}) => {
       }}>
       <Text style={{fontSize: 16}}>{category}</Text>
       {loading && <ActivityIndicator size="small" />}
+      {!loading && <Text>{totalResults}</Text>}
     </View>
   );
 };
 
 const HomeScreen = () => {
-  const loadingAll = useSelector(state => state.news.loadingAll);
+  const loadingAll = useSelector(state => getAllCategoriesLoading(state));
 
   const renderCategories = () => {
     return newsCategories.map(category => {
