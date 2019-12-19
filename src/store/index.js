@@ -1,4 +1,4 @@
-import {combineReducers, createStore, applyMiddleware, compose} from 'redux';
+import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 
 import newsMiddlware from './news/news.middleware';
 import newsReducer from './news/news.reducer';
@@ -15,7 +15,10 @@ const middlewares = [...newsMiddlware, ...apiMiddleware];
 
 const store = createStore(
   reducers,
-  compose(applyMiddleware(...middlewares), Reactotron.createEnhancer()),
+  compose(
+    applyMiddleware(...middlewares),
+    Reactotron.createEnhancer(),
+  ),
 );
 
 export default store;

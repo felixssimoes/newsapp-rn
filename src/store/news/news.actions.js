@@ -1,4 +1,4 @@
-import {createAction} from 'utils/redux';
+import { createAction } from 'utils/redux';
 import newsTypes from './news.types';
 
 export const loadAllCategories = () =>
@@ -11,7 +11,7 @@ export const loadCategory = category =>
   createAction(newsTypes.news.category.fetch.request, category);
 
 export const setCategoryLoading = (category, loading) =>
-  createAction(newsTypes.news.category.loading, {category, loading});
+  createAction(newsTypes.news.category.loading, { category, loading });
 
 export const updateNewsArticles = (category, articles, totalResults) =>
   createAction(newsTypes.news.category.fetch.update, {

@@ -1,4 +1,4 @@
-import {createAction} from 'utils/redux';
+import { createAction } from 'utils/redux';
 import apiTypes from './api.types';
 
 export const apiRequest = (
@@ -11,6 +11,6 @@ export const apiRequest = (
 ) =>
   createAction(
     apiTypes.request,
-    {url, method, body},
-    {onSuccess, onError, contextInfo},
+    { url, method, body },
+    { onSuccess, onError, contextInfo },
   );

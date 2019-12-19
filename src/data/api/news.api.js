@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {getNewsHeadlinesUrl} from './url_builder';
-import store from 'store';
-import {updateNewsArticles} from 'store/actions';
+import { getNewsHeadlinesUrl } from './url_builder';
+// import store from 'store';
+// import {updateNewsArticles} from 'store/actions';
 
 export const newsCategories = [
   'business',

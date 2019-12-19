@@ -1,4 +1,4 @@
-import {newsCategories, getNewsHeadlinesForCategory} from 'data/api/news.api';
+import { newsCategories, getNewsHeadlinesForCategory } from 'data/api/news.api';
 import store from 'store';
 import {
   updateNewsArticles,
@@ -21,7 +21,7 @@ export const loadNewsForCategory = async category => {
 
   try {
     const response = await getNewsHeadlinesForCategory(category);
-    const {totalResults, articles} = response.data;
+    const { totalResults, articles } = response.data;
     store.dispatch(updateNewsArticles(category, articles, totalResults));
   } catch (error) {
     console.log('Error loading category', error);

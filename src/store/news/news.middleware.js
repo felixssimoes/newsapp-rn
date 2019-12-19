@@ -1,17 +1,17 @@
+import { newsCategories } from 'data/api/news.api';
+import { getNewsHeadlinesUrl } from 'data/api/url_builder';
 import {
-  getNewsHeadlinesForAllCategories,
-  newsCategories,
-} from 'data/api/news.api';
-import {getNewsHeadlinesUrl} from 'data/api/url_builder';
-import {createAction} from 'utils/redux';
-import {apiRequest, loadCategory, loadAllCategories} from 'store/actions';
+  apiRequest,
+  loadCategory,
+  // loadAllCategories
+} from 'store/actions';
 
 import appTypes from '../app/app.types';
 import newsTypes from './news.types';
-import {setCategoryLoading, updateNewsArticles} from './news.actions';
-import {loadNewsCategoriesForAllCategories} from 'data/repository/news.repository';
+import { setCategoryLoading, updateNewsArticles } from './news.actions';
+import { loadNewsCategoriesForAllCategories } from 'data/repository/news.repository';
 
-const loadNewsOnAppStart = ({dispatch}) => next => action => {
+const loadNewsOnAppStart = ({ dispatch }) => next => action => {
   const result = next(action);
   if (action.type === appTypes.start) {
     // dispatch(loadAllCategories());
@@ -20,7 +20,7 @@ const loadNewsOnAppStart = ({dispatch}) => next => action => {
   return result;
 };
 
-const loadAllNewsCategories = ({dispatch}) => next => action => {
+const loadAllNewsCategories = ({ dispatch }) => next => action => {
   const result = next(action);
   if (action.type === newsTypes.news.allCategories.fetch) {
     newsCategories.forEach(category => dispatch(loadCategory(category)));
@@ -28,7 +28,7 @@ const loadAllNewsCategories = ({dispatch}) => next => action => {
   return result;
 };
 
-const loadNewsCategory = ({dispatch}) => next => action => {
+const loadNewsCategory = ({ dispatch }) => next => action => {
   const result = next(action);
   if (action.type === newsTypes.news.category.fetch.request) {
     const category = action.payload;
@@ -41,28 +41,28 @@ const loadNewsCategory = ({dispatch}) => next => action => {
         null,
         newsTypes.news.category.fetch.success,
         newsTypes.news.category.fetch.error,
-        {category},
+        { category },
       ),
     );
   }
   return result;
 };
 
-const newsCategoryFetchSuccess = ({dispatch}) => next => action => {
+const newsCategoryFetchSuccess = ({ dispatch }) => next => action => {
   const result = next(action);
   if (action.type === newsTypes.news.category.fetch.success) {
-    const {category} = action.meta;
-    const {totalResults, articles} = action.payload;
+    const { category } = action.meta;
+    const { totalResults, articles } = action.payload;
     dispatch(updateNewsArticles(category, articles, totalResults));
     dispatch(setCategoryLoading(category, false));
   }
   return result;
 };
 
-const newsCategoryLoadingError = ({dispatch}) => next => action => {
+const newsCategoryLoadingError = ({ dispatch }) => next => action => {
   const result = next(action);
   if (action.type === newsTypes.news.category.fetch.error) {
-    const {category} = action.meta;
+    const { category } = action.meta;
     dispatch(setCategoryLoading(category, false));
   }
   return result;

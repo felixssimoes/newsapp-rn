@@ -6,16 +6,16 @@ import {
   SafeAreaView,
   StyleSheet,
 } from 'react-native';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import {newsCategories} from 'data/api/news.api';
+import { newsCategories } from 'data/api/news.api';
 import {
   getAllCategoriesLoading,
   getCategoryLoading,
   getCategoryResultsCount,
 } from 'store/selectors';
 
-const HomeCategory = ({category}) => {
+const HomeCategory = ({ category }) => {
   const loading = useSelector(state => getCategoryLoading(state, category));
   const totalResults = useSelector(state =>
     getCategoryResultsCount(state, category),
@@ -33,7 +33,7 @@ const HomeCategory = ({category}) => {
         justifyContent: 'space-between',
         paddingHorizontal: 16,
       }}>
-      <Text style={{fontSize: 16}}>{category}</Text>
+      <Text style={{ fontSize: 16 }}>{category}</Text>
       {loading && <ActivityIndicator size="small" />}
       {!loading && <Text>{totalResults}</Text>}
     </View>
@@ -50,8 +50,8 @@ const HomeScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-      <Text style={{alignSelf: 'stretch', textAlign: 'center', fontSize: 24}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+      <Text style={{ alignSelf: 'stretch', textAlign: 'center', fontSize: 24 }}>
         All Categories
       </Text>
       <View

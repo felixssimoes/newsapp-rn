@@ -1,7 +1,7 @@
 import Reactotron from 'reactotron-react-native';
-import {reactotronRedux} from 'reactotron-redux';
+import { reactotronRedux } from 'reactotron-redux';
 
-Reactotron.configure({name: 'NewsApp'});
+Reactotron.configure({ name: 'NewsApp' });
 // Reactotron.setAsyncStorageHandler(AsyncStorage) // for future usage
 
 Reactotron.useReactNative();
