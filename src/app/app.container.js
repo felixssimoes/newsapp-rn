@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
-import BlankScreen from 'ui/screens/blank.screen';
+import HomeScreen from 'ui/screens/home/home.screen';
 import {appStart} from 'store/actions';
 
 export const AppContainer = () => {
@@ -9,5 +9,5 @@ export const AppContainer = () => {
     dispatch(appStart());
   }, []);
 
-  return <BlankScreen />;
+  return <HomeScreen />;
 };
