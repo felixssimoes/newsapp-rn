@@ -9,37 +9,16 @@ import {
 import { useSelector } from 'react-redux';
 
 import { newsCategories } from 'data/api/news.api';
-import {
-  getAllCategoriesLoading,
-  getCategoryLoading,
-  getCategoryTotalResults,
-  getCategoryResultsCount,
-} from 'store/selectors';
-
-const HomeCategory = ({ category }) => {
-  const loading = useSelector(state => getCategoryLoading(state, category));
-  const totalResults = useSelector(state =>
-    getCategoryTotalResults(state, category),
-  );
-  const articlesCount = useSelector(state =>
-    getCategoryResultsCount(state, category),
-  );
-
-  return (
-    <View style={styles.categoryCell}>
-      <Text style={styles.categoryText}>{category}</Text>
-      {loading && <ActivityIndicator size="small" />}
-      {!loading && <Text>{`${articlesCount} / ${totalResults}`}</Text>}
-    </View>
-  );
-};
+import { getAllCategoriesLoading } from 'store/selectors';
+import CategoryGroup from 'ui/components/news/category_group';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const HomeScreen = () => {
   const loadingAll = useSelector(state => getAllCategoriesLoading(state));
 
   const renderCategories = () => {
     return newsCategories.map(category => {
-      return <HomeCategory key={category} category={category} />;
+      return <CategoryGroup key={category} category={category} />;
     });
   };
 
@@ -47,7 +26,7 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.container}>
       <Text style={styles.titleText}>All Categories</Text>
       <View style={styles.topSpacer} />
-      {renderCategories()}
+      <ScrollView>{renderCategories()}</ScrollView>
       {loadingAll && (
         <ActivityIndicator size="large" style={StyleSheet.absoluteFill} />
       )}
@@ -63,18 +42,6 @@ const styles = StyleSheet.create({
   },
   titleText: { alignSelf: 'stretch', textAlign: 'center', fontSize: 24 },
   container: { flex: 1, backgroundColor: '#fff' },
-  categoryText: {
-    fontSize: 16,
-  },
-  categoryCell: {
-    flexDirection: 'row',
-    height: 55,
-    borderBottomColor: 'lightgrey',
-    borderBottomWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-  },
 });
 
 export default HomeScreen;

@@ -1,10 +1,16 @@
 export const getAllCategoriesLoading = state => state.news.loadingAll;
 
 export const getCategoryLoading = (state, category) =>
-  (state.news.categories[category] || {}).loading || false;
+  _safeCategoryState(state, category).loading || false;
 
 export const getCategoryTotalResults = (state, category) =>
-  (state.news.categories[category] || {}).totalResults || 0;
+  _safeCategoryState(state, category).totalResults || 0;
 
 export const getCategoryResultsCount = (state, category) =>
-  ((state.news.categories[category] || {}).articles || []).length || 0;
+  getCategoryNewsArticles(state, category).length || 0;
+
+export const getCategoryNewsArticles = (state, category) =>
+  _safeCategoryState(state, category).articles || [];
+
+const _safeCategoryState = (state, category) =>
+  state.news.categories[category] || {};
