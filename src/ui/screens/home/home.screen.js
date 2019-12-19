@@ -22,18 +22,8 @@ const HomeCategory = ({ category }) => {
   );
 
   return (
-    <View
-      key={category}
-      style={{
-        flexDirection: 'row',
-        height: 55,
-        borderBottomColor: 'lightgrey',
-        borderBottomWidth: 1,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 16,
-      }}>
-      <Text style={{ fontSize: 16 }}>{category}</Text>
+    <View key={category} style={styles.categoryCell}>
+      <Text style={styles.categoryText}>{category}</Text>
       {loading && <ActivityIndicator size="small" />}
       {!loading && <Text>{totalResults}</Text>}
     </View>
@@ -50,17 +40,9 @@ const HomeScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
-      <Text style={{ alignSelf: 'stretch', textAlign: 'center', fontSize: 24 }}>
-        All Categories
-      </Text>
-      <View
-        style={{
-          height: 22,
-          borderBottomColor: 'lightgrey',
-          borderBottomWidth: 1,
-        }}
-      />
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.titleText}>All Categories</Text>
+      <View style={styles.topSpacer} />
       {renderCategories()}
       {loadingAll && (
         <ActivityIndicator size="large" style={StyleSheet.absoluteFill} />
@@ -68,5 +50,27 @@ const HomeScreen = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  topSpacer: {
+    height: 22,
+    borderBottomColor: 'lightgrey',
+    borderBottomWidth: 1,
+  },
+  titleText: { alignSelf: 'stretch', textAlign: 'center', fontSize: 24 },
+  container: { flex: 1, backgroundColor: '#fff' },
+  categoryText: {
+    fontSize: 16,
+  },
+  categoryCell: {
+    flexDirection: 'row',
+    height: 55,
+    borderBottomColor: 'lightgrey',
+    borderBottomWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+  },
+});
 
 export default HomeScreen;
