@@ -26,7 +26,7 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.container}>
       <Text style={styles.titleText}>All Categories</Text>
       <View style={styles.topSpacer} />
-      <ScrollView>{renderCategories()}</ScrollView>
+      {!loadingAll && <ScrollView>{renderCategories()}</ScrollView>}
       {loadingAll && (
         <ActivityIndicator size="large" style={StyleSheet.absoluteFill} />
       )}
