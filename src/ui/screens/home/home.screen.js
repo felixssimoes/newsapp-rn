@@ -12,20 +12,24 @@ import { newsCategories } from 'data/api/news.api';
 import {
   getAllCategoriesLoading,
   getCategoryLoading,
+  getCategoryTotalResults,
   getCategoryResultsCount,
 } from 'store/selectors';
 
 const HomeCategory = ({ category }) => {
   const loading = useSelector(state => getCategoryLoading(state, category));
   const totalResults = useSelector(state =>
+    getCategoryTotalResults(state, category),
+  );
+  const articlesCount = useSelector(state =>
     getCategoryResultsCount(state, category),
   );
 
   return (
-    <View key={category} style={styles.categoryCell}>
+    <View style={styles.categoryCell}>
       <Text style={styles.categoryText}>{category}</Text>
       {loading && <ActivityIndicator size="small" />}
-      {!loading && <Text>{totalResults}</Text>}
+      {!loading && <Text>{`${articlesCount} / ${totalResults}`}</Text>}
     </View>
   );
 };
