@@ -12,9 +12,7 @@ const HomeScreen = props => {
 
   const onPressViewAll = category => {
     const { navigation } = props;
-    navigation.navigate('all', {
-      message: `All News for ${category} goes here!`,
-    });
+    navigation.navigate('all', { category });
   };
 
   const renderCategories = () => {
