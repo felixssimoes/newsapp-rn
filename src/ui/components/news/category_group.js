@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { useSelector } from 'react-redux';
+import { withNavigation } from 'react-navigation';
 
 import { getCategoryLoading, getCategoryNewsArticles } from 'store/selectors';
 import Article from './article';
@@ -20,11 +21,26 @@ export const options = {
   wrapper: true,
 };
 
-const CategoryGroup = ({ category, onPressViewAll }) => {
+const CategoryGroup = ({
+  category,
+  onPressViewAll,
+  onPressArticle,
+  navigation,
+}) => {
   const loading = useSelector(state => getCategoryLoading(state, category));
   const articles = useSelector(state =>
     getCategoryNewsArticles(state, category).slice(0, 6),
   );
+
+  const renderArticle = article => {
+    return (
+      <TouchableOpacity
+        key={`article_${article.title}${article.publishedAt}`}
+        onPress={() => onPressArticle(article)}>
+        <Article article={article} />
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View>
@@ -36,12 +52,7 @@ const CategoryGroup = ({ category, onPressViewAll }) => {
       {articles.length > 0 && (
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {[
-            ...articles.map(article => (
-              <Article
-                key={`article_${article.title}${article.publishedAt}`}
-                article={article}
-              />
-            )),
+            ...articles.map(renderArticle),
             <View
               key={`${category}_finalspace`}
               style={styles.groupFinalSpace}
@@ -95,4 +106,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CategoryGroup;
+export default withNavigation(CategoryGroup);

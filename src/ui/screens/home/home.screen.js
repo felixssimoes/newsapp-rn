@@ -7,12 +7,15 @@ import { getAllCategoriesLoading } from 'store/selectors';
 import CategoryGroup from 'ui/components/news/category_group';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const HomeScreen = props => {
+const HomeScreen = ({ navigation }) => {
   const loadingAll = useSelector(state => getAllCategoriesLoading(state));
 
   const onPressViewAll = category => {
-    const { navigation } = props;
     navigation.navigate('all', { category });
+  };
+
+  const onPressArticle = article => {
+    navigation.navigate('detail', { article });
   };
 
   const renderCategories = () => {
@@ -22,6 +25,7 @@ const HomeScreen = props => {
           key={category}
           category={category}
           onPressViewAll={onPressViewAll}
+          onPressArticle={onPressArticle}
         />
       );
     });

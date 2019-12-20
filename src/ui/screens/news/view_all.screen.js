@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Dimensions,
   ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -33,8 +34,16 @@ const ViewAllNewsScreen = ({ navigation }) => {
     getCategoryResultsCount(state, category),
   );
 
+  const onPressArticle = article => {
+    navigation.navigate('detail', { article });
+  };
+
   const renderItem = ({ item: article }) => {
-    return <Article style={{ width: _columnWidth }} article={article} />;
+    return (
+      <TouchableOpacity onPress={() => onPressArticle(article)}>
+        <Article style={{ width: _columnWidth }} article={article} />
+      </TouchableOpacity>
+    );
   };
 
   const onLoadMore = async () => {
