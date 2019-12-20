@@ -20,7 +20,7 @@ export const options = {
   wrapper: true,
 };
 
-const CategoryGroup = ({ category }) => {
+const CategoryGroup = ({ category, onPressViewAll }) => {
   const loading = useSelector(state => getCategoryLoading(state, category));
   const articles = useSelector(state =>
     getCategoryNewsArticles(state, category).slice(0, 6),
@@ -28,7 +28,10 @@ const CategoryGroup = ({ category }) => {
 
   return (
     <View>
-      <Header title={category} onPressViewAll={() => {}} />
+      <Header
+        title={category}
+        onPressViewAll={() => onPressViewAll(category)}
+      />
       {loading && <ActivityIndicator size="small" />}
       {articles.length > 0 && (
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>

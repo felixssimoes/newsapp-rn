@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default () => {
+export default ({ navigation }) => {
+  const message = navigation.getParam('message');
   return (
     <View style={styles.container}>
-      <Text>News App</Text>
+      <Text>{message || 'News App'}</Text>
     </View>
   );
 };
