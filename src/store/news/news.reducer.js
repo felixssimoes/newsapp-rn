@@ -26,6 +26,12 @@ const categories = (state = {}, action) => {
       };
     }
 
+    case newsTypes.news.category.reset:
+      return {
+        ...state,
+        [action.payload]: {},
+      };
+
     default:
       return state;
   }

@@ -19,3 +19,6 @@ export const updateNewsArticles = (category, articles, totalResults) =>
     articles,
     totalResults,
   });
+
+export const resetNewsArticles = category =>
+  createAction(newsTypes.news.category.reset, category);

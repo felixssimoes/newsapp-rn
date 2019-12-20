@@ -14,9 +14,13 @@ import {
   getCategoryNewsArticles,
   getCategoryTotalResults,
   getCategoryResultsCount,
+  getCategoryLoading,
 } from 'store/selectors';
 import Article from 'ui/components/news/article';
-import { loadNextPageNewsForCategory } from 'data/repository/news.repository';
+import {
+  loadNextPageNewsForCategory,
+  reloadNewsForCategory,
+} from 'data/repository/news.repository';
 
 const _windowWidth = Dimensions.get('window').width;
 const _margin = 12;
@@ -26,6 +30,7 @@ const ViewAllNewsScreen = ({ navigation }) => {
   const category = navigation.getParam('category');
   const [isLoadingMore, setLoadingMore] = useState(false);
 
+  const isLoading = useSelector(state => getCategoryLoading(state, category));
   const news = useSelector(state => getCategoryNewsArticles(state, category));
   const totalResults = useSelector(state =>
     getCategoryTotalResults(state, category),
@@ -61,6 +66,10 @@ const ViewAllNewsScreen = ({ navigation }) => {
     }
   };
 
+  const onRefresh = () => {
+    reloadNewsForCategory(category);
+  };
+
   const renderFooter = () => {
     return (
       <SafeAreaView>{isLoadingMore && <ActivityIndicator />}</SafeAreaView>
@@ -79,6 +88,8 @@ const ViewAllNewsScreen = ({ navigation }) => {
       onEndReached={onLoadMore}
       onEndReachedThreshold={0.25}
       ListFooterComponent={renderFooter}
+      onRefresh={onRefresh}
+      refreshing={isLoading}
     />
   );
 };

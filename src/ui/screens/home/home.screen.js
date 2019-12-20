@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation }) => {
     <React.Fragment>
       {!loadingAll && (
         <ScrollView style={styles.container}>
-          {[...renderCategories(), <SafeAreaView />]}
+          {[...renderCategories(), <SafeAreaView key={'home_list_footer'} />]}
         </ScrollView>
       )}
       {loadingAll && (

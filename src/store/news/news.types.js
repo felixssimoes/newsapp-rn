@@ -6,6 +6,7 @@ export default {
     },
     category: {
       loading: 'news.news.category.loading',
+      reset: 'news.news.category.reset',
       fetch: {
         request: 'news.news.category.fetch.request',
         success: 'news.news.category.fetch.success',

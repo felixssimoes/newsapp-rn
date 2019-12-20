@@ -4,6 +4,7 @@ import {
   updateNewsArticles,
   setCategoryLoading,
   setAllCategoriesLoading,
+  resetNewsArticles,
 } from 'store/actions';
 import { getCategoryResultsCount } from 'store/selectors';
 
@@ -49,4 +50,9 @@ export const loadNextPageNewsForCategory = async category => {
   const page = resultsCount / _pageSize + 1;
 
   await loadNewsForCategory(category, { page });
+};
+
+export const reloadNewsForCategory = async category => {
+  store.dispatch(resetNewsArticles(category));
+  await loadNewsForCategory(category);
 };
