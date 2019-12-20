@@ -21,7 +21,7 @@ const categories = (state = {}, action) => {
         [category]: {
           ...state[category],
           totalResults,
-          articles,
+          articles: [...(state[category].articles || []), ...articles],
         },
       };
     }

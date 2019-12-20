@@ -47,8 +47,11 @@ export const newsCategories = [
 //   }
 // };
 
-export const getNewsHeadlinesForCategory = async category => {
-  const url = getNewsHeadlinesUrl(category);
+export const getNewsHeadlinesForCategory = async (
+  category,
+  { page, pageSize },
+) => {
+  const url = getNewsHeadlinesUrl(category, page, pageSize);
   const response = await axios.get(url);
   return response;
 };

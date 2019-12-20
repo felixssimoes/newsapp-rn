@@ -5,6 +5,9 @@ import {
   setCategoryLoading,
   setAllCategoriesLoading,
 } from 'store/actions';
+import { getCategoryResultsCount } from 'store/selectors';
+
+const _pageSize = 20;
 
 export const loadNewsCategoriesForAllCategories = () => {
   store.dispatch(setAllCategoriesLoading(true));
@@ -16,16 +19,34 @@ export const loadNewsCategoriesForAllCategories = () => {
   );
 };
 
-export const loadNewsForCategory = async category => {
+/**
+ * Load the news' articles for a category
+ * @param {*} category category to load news
+ * @param {*} options options to load news: [page] the page to load
+ */
+export const loadNewsForCategory = async (category, options = {}) => {
+  const { page = 0 } = options;
   store.dispatch(setCategoryLoading(category, true));
 
   try {
-    const response = await getNewsHeadlinesForCategory(category);
+    const response = await getNewsHeadlinesForCategory(category, {
+      page,
+      pageSize: _pageSize,
+    });
     const { totalResults, articles } = response.data;
     store.dispatch(updateNewsArticles(category, articles, totalResults));
+    console.log('loaded news for category', category);
   } catch (error) {
     console.log('Error loading category', error);
   }
 
   store.dispatch(setCategoryLoading(category, false));
+};
+
+export const loadNextPageNewsForCategory = async category => {
+  const resultsCount = getCategoryResultsCount(store.getState(), category);
+
+  const page = resultsCount / _pageSize + 1;
+
+  await loadNewsForCategory(category, { page });
 };
