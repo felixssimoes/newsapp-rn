@@ -15,7 +15,7 @@ const ArticleImage = ({ image, style, imageStyle }) => {
   );
 };
 
-const Article = ({ article }) => {
+const Article = ({ article, style }) => {
   const source = article.source.name;
   const snippet = article.content;
   const time = article.publishedAt;
@@ -48,7 +48,7 @@ const Article = ({ article }) => {
   };
 
   return (
-    <View style={styles.articleCardContainer}>
+    <View style={[styles.articleCardContainer, style]}>
       <ArticleImage image={article.urlToImage} />
       <View style={styles.articleInfoContainer}>
         {renderSource()}
