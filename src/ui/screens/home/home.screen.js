@@ -32,12 +32,16 @@ const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      {!loadingAll && <ScrollView>{renderCategories()}</ScrollView>}
+    <React.Fragment>
+      {!loadingAll && (
+        <ScrollView style={styles.container}>
+          {[...renderCategories(), <SafeAreaView />]}
+        </ScrollView>
+      )}
       {loadingAll && (
         <ActivityIndicator size="large" style={StyleSheet.absoluteFill} />
       )}
-    </SafeAreaView>
+    </React.Fragment>
   );
 };
 
